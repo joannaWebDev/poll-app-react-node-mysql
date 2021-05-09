@@ -27,7 +27,6 @@ li {
 
 html {
   font-size: 16px;
-  border: 5px solid blue;
 }
 
 
@@ -45,7 +44,6 @@ body {
   font-size: 1rem;
   line-height: 1.5;
   text-align: center;
-  border: 5px solid red;
 }
 
 

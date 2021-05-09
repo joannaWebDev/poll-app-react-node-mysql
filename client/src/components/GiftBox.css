@@ -1,0 +1,310 @@
+/* animations */
+
+@keyframes fade-in {
+  0%{opacity:0;}
+  100%{ opacity: 1; }
+}
+
+@keyframes floaty {
+  0% { 
+    transform:
+      translateZ(16em);    
+  }
+  
+  50% { 
+    transform:
+      translateZ(15.5em);    
+  }
+}
+
+@keyframes rotate {
+  0%{
+    transform:
+      rotateZ(0deg)
+      translateZ(2em)      
+      rotateX(-90deg)
+      rotateY(45deg);   
+  }
+  50%{transform:
+      rotateZ(180deg)
+      translateZ(1.5em)      
+      rotateX(-90deg)
+      rotateY(45deg);   
+  }
+  100%{
+    transform:rotateZ(360deg)
+      translateZ(2em)       
+      rotateX(-90deg)
+      rotateY(45deg);   
+  }
+}
+
+@keyframes wiggle {
+  0% {
+    transform: 
+      translateZ(4em)
+      rotateX(0deg)
+      rotateY(0deg)
+  }
+  11% {
+    transform: translateZ(4em)
+      rotateX(1deg)
+      rotateY(-1deg);
+  }
+  22% {
+    transform: translateZ(4em)
+      rotateX(1deg)
+      rotateY(1deg);
+  }
+  33% {
+    transform: translateZ(4em)
+      rotateX(1deg)
+      rotateY(0deg);
+  }
+  44% {
+    transform: translateZ(4em)
+      rotateX(-1deg)
+      rotateY(-1deg);
+  }
+  55% {
+    transform: translateZ(4em)
+      rotateX(1deg)
+      rotateY(1deg);
+  }
+  66% {
+    transform: translateZ(4em)
+      rotateX(-1deg)
+      rotateY(0deg);
+  }
+  100%{
+    transform: translateZ(4em) rotateX(0deg);
+  }
+}
+
+@keyframes down {
+  0%{transform: translateZ(16em);}
+  100%{transform: translateZ(4em);}
+}
+
+@keyframes up {
+  0%{
+    transform: translateZ(4em) rotateX(0deg);
+  }
+  100%{
+    transform: translateZ(16em) rotateX(0deg);
+  }
+}
+
+
+/* container for floating text */
+.qmark {
+  font-size: 3em;
+  font-weight: 700;
+  text-shadow: 0 0 1em 0em rgba(250,250,0,1);
+  position:absolute;
+  transform: 
+    translateZ(1em) 
+    translateX(.8em)
+    translateY(.5em)
+    rotateX(-90deg)
+    rotateY(45deg);
+}
+/* the present :D */
+.heart-gift{ 
+  color: red;
+  animation: 
+    rotate 2s infinite linear,
+    fade-in 1.5s ease;
+  opacity: 1;
+  font-size: 3em;
+  z-index: 2; 
+  position: absolute;
+  transform-origin: 50% 50%;
+  text-shadow: 
+    0 0 .1em red;
+}
+/* the container for the 3d  */
+.floor {
+  top:20%;
+  display: flex;
+  align-items: center;
+  justify-content:center; 
+  z-index: 1;
+  height: 20em;
+  position: absolute;
+  width: 20em;
+  transform-origin: 0% 0%;
+  transform: 
+    rotateX(45deg) rotateZ(45deg);
+  transform-style: preserve-3d;
+  perspective: 1200px; 
+}
+
+/*  box container and parts */
+.box {
+  z-index:1;  
+  position: relative;
+  transform: translateZ(6em);
+  transform-style: preserve-3d;  
+}
+.face {
+  height: 6em;
+  width: 6em;
+  position: absolute;
+  z-index: 1;
+  box-shadow: 
+    0 0 .5em .25em rgba(0,0,0,.2) inset;
+}
+.top{
+  background-color: black;
+  background-image:
+    linear-gradient(
+      -90deg,
+      transparent 49%,
+      rgb(50,110,160)
+    ),
+    linear-gradient(
+      0deg,
+      transparent 49%,
+      rgb(50,110,160)
+    );
+  transform: translateZ(3em);
+  box-shadow: 
+    0 0 0 .4em rgba(50,150,200,1) inset;
+}
+.right{
+  background-image: linear-gradient(
+      to top,
+      rgba(0,0,0,0) 33%,
+      rgba(225,225,0,1) 34% 65%,
+      rgba(0,0,0,0) 66%);
+  background-color: rgb(20,130,170);
+  transform: rotateY(90deg) translateZ(3em);
+}
+.left{
+  background-image: linear-gradient(
+      to right,
+      rgba(0,0,0,0) 33%,
+      rgba(200,200,0,1) 33% 66%,
+      rgba(0,0,0,0) 66%);
+  background-color: rgb(0,110,150);
+  transform: rotateX(-90deg) translateZ(3em);
+}
+
+/* lid and parts */
+.lid{ 
+  animation: 
+    wiggle 1.5s infinite cubic-bezier(.2,1.2,.6,1.1); 
+  position: absolute;
+  height: 6.5em;
+  width: 6.5em;  
+  transform-style:preserve-3d;
+  z-index:2;
+}
+.open{
+  transform: translateZ(16em); 
+  animation: up 1s ease-out,
+    floaty 2s 1s infinite linear;
+}
+.close { 
+  transform: translateZ(4em);
+  animation: down 1s ease-out,
+    wiggle 1.5s  1s infinite cubic-bezier(.2,1.2,.6,1.1); 
+}
+.ltop{
+  height: 6.5em;
+  width: 6.5em;
+  background-color: rgb(50,150,200);
+  background-image: linear-gradient(
+      to right,
+      rgba(0,0,0,0) 33%,
+      rgba(225,225,0,1) 34% 65%,
+      rgba(0,0,0,.1) 66% 68%,
+      rgba(0,0,0,0) 69%),
+  linear-gradient(
+      to top,
+      rgba(0,0,0,0) 33%,
+      rgba(200,200,0,1) 34% 65%,
+      rgba(0,0,0,0) 66%);
+}
+.lright{
+  z-index:2;
+  background-color: rgb(20,130,170);
+  width: 3em;
+  height: 6.5em;
+  transform:
+    rotateY(90deg) 
+    translateX(1.5em) 
+    translateZ(5em);
+  background-image: linear-gradient(
+      to top,
+      rgba(0,0,0,0) 33%,
+      rgba(200,200,0,1) 34% 65%,
+      rgba(0,0,0,0) 66%);
+}
+.lleft{
+  height: 3em;
+  width: 6.5em;
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(0,0,0,0) 33%,
+      rgba(225,225,0,1) 33% 66%,
+      rgba(0,0,0,0) 66%);
+  background-color: rgb(0,110,150);
+  transform: 
+    rotateX(-90deg) 
+    translateY(1.5em)
+    translateZ(5em);
+}
+
+.shadow {
+  position:absolute;
+  top:54%;
+  left:57.3%;
+  z-index:2;
+  height:18em;
+  width: 7.9em;
+  border-radius: 25% 0 0 0;
+  background: linear-gradient(#4446, rgba(0,0,0,0));
+  transform:
+    rotateZ(-20deg)
+    translateZ(3em);
+}
+.shadow2 {
+  position:absolute;
+  top:50%;
+  left:50%;
+  z-index:2;
+  height:20em;
+  width: 6em;
+  background: linear-gradient(#4446, rgba(0,0,0,0));
+  transform:
+    translateZ(3em);
+}
+
+
+.shadow3 {
+  position:absolute;
+  top:45%;
+  left:36.5%;
+  z-index:2;
+  height:22em;
+  width: 8em;
+  border-radius: 0 50% 0 0;
+  background: linear-gradient(#4446, rgba(0,0,0,0));
+  transform:
+    rotateZ(13deg)
+    
+    translateZ(3em);
+}
+
+@media only screen and (max-width: 680px) {
+  .floor {
+    height: 0;
+    width: 0;
+    perspective: 0;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}

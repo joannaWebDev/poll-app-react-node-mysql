@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import GiftBox from './GiftBox';
 import './Poll.css';
+
 
 function StrawPoll() {
   const [voteData, setVoteData] = useState();
@@ -43,21 +45,10 @@ function StrawPoll() {
     pollOptions = voteData.map((item) => {
       return (
         <li key={item.id} >       
-          <div className="box">
-            {/* <i className="fa fa-heart-o heart">❤️</i> */}
-            <div className="lid close">
-              <div className="qmark">{item.id}</div>
-              <div className="face ltop"></div>
-              <div className="face lleft"></div>
-              <div className="face lright"></div>
-            </div>
-            <div className="face top"></div>
-            <div className="face left"></div>
-            <div className="face right"></div>
-          </div>
+          <GiftBox/>
           <button onClick={submitVote} data-id={item.id}>
             {item.option}
-            <span>- {item.votes} Votes</span>
+            <span>- got {item.votes} votes</span>
           </button>
         </li>
       );
@@ -68,7 +59,7 @@ function StrawPoll() {
     <div className="poll">
       <h1>Choose the gift behind box nº...</h1>
       <ul className={voted ? 'results' : 'options'}>{pollOptions}</ul>
-      <p>Total Votes: {totalVotes}</p>
+      <p>TOTAL VOTES: {totalVotes}</p>
     </div>
   );
 }

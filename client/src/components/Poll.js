@@ -57,7 +57,7 @@ function StrawPoll() {
 
   return (
     <div className="poll">
-      <h1>Choose the gift behind box nº...</h1>
+      <h1>Choose the gift behind mystery box</h1>
       <ul className={voted ? 'results' : 'options'}>{pollOptions}</ul>
       <p>TOTAL VOTES: {totalVotes}</p>
     </div>

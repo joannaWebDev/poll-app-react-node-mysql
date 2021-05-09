@@ -1,6 +1,6 @@
 .poll {
-  margin:5% auto 0;
-  padding: 0 5%;
+  margin:0 auto ;
+  padding: 1% 5% 0 5%;
   height: 100%;
   min-height: 100vh;
 }

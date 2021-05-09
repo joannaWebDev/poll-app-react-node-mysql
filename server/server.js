@@ -10,10 +10,14 @@ app.use(bodyParser.json());
 
 //request the path API and serve static files from the client build folder.
 app.use(express.static(path.join(__dirname, '../client/build')));
+/* app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+}); */
+
 const PORT = process.env.PORT || 5000 ;
 
-const pollData = require("./data.json");
 
+const pollData = require("./data.json");
 app.get("/poll", function (req, res) {
   res.send(pollData);
 });

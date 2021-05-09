@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const path = require('path');
-/* const bodyParser = require("body-parser"); */
+const bodyParser = require("body-parser");
 const fs = require("fs");
 
 const app = express();
 app.use(cors());
-/* app.use(bodyParser.json()); */
+app.use(bodyParser.json());
 
 //request the path API and serve static files from the client build folder.
 app.use(express.static(path.join(__dirname, '../client/build')));

@@ -44,37 +44,13 @@ app.get("/", (req, res) =>{
   })
 }); 
 
-/*app.get("/", (req, res) => {
-  db
-  .query("SELECT * FROM `voting_app`")
-  .then(result => res.send('ok'))
-  .catch(error => {
-      console.log(error);
-      res.send('Oops.Try again please 😕')
-    })
-  }
-); 
 
-*/
 
 app.get("/poll", (req, res) => {
     res.send(pollData);
 });
 
 
-/*FIXME
-app.post("/test", (req, res) => {
-  const query = "SELECT count(*) FROM  `voting_app` WHERE `option`='Gift One';"
-
-  db
-  .query(query)
-  .then(() => response.send("😉"))
-  .catch(error => {
-    console.log(error);
-    res.send('Oops.We did it again. 😕')
-  }) 
-})
-*/
 
 app.post("/poll", (req, res) =>{
   if (req.body) {

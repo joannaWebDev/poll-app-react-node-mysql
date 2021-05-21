@@ -54,11 +54,13 @@ app.get('/poll', getEntireTable);
 app.put("/poll", putUpdatedVotes);
 
 
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
-
-
+app.listen(PORT, function(err) {
+  if (err) {
+    console.error(err)
+  } else {
+    console.log(`Running on port ${PORT}`)
+}
+})
 
 
 

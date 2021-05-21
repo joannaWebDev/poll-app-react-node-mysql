@@ -20,3 +20,14 @@ npm install nodemon --save-dev
 https://crud-poll-react-node.herokuapp.com/
 
 Deploy on Heroku
+
+
+cd client
+npm run build
+move build folder to server
+
+cd root
+git add .
+git commit -m ""
+git push
+git push heroku main

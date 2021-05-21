@@ -47,8 +47,6 @@ SELECT COUNT(*) AS opc1 from votes
 WHERE optionName = 'Gift Two';
 
 
-
-
 DROP TABLE if exists voting_app;
 
 CREATE TABLE voting_app(

@@ -20,7 +20,14 @@ npm install nodemon --save-dev
 https://crud-poll-react-node.herokuapp.com/
 
 Deploy on Heroku
-
+heroku login
+$ cd nodejs-express-mysql
+$ git init
+$ git add .
+$ git commit -m "initial commit"
+$ heroku create bezkoder-nodejs-mysql
+$ git remote -v
+$ git push heroku master
 
 cd client
 npm run build

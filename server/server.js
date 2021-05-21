@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const mysql = require('mysql');
-const secrets = require('./secrets.json');
+const secrets = require('./secrets.json');0.
 
 const app = express();
 const bodyParser = require("body-parser");

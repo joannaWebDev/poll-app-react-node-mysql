@@ -18,3 +18,5 @@ npm install nodemon --save-dev
 
 # Demo
 https://crud-poll-react-node.herokuapp.com/
+
+Deploy on Heroku

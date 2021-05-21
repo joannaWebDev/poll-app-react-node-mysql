@@ -62,9 +62,10 @@ button:hover {
 }
 
 
+/*IMPORTANT uncomment this after DB set-up 👇
 span {
   display: none;
-}
+} */
 
 .poll ul.results li {
   border-color: #999;

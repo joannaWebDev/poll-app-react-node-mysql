@@ -2,53 +2,64 @@ import React, { useState, useEffect } from 'react';
 import GiftBox from './GiftBox';
 import './Poll.css';
 
-
 function StrawPoll() {
   const [voteData, setVoteData] = useState();
   const [totalVotes, setTotalVotes] = useState(0);
   const [voted, setVoted] = useState(false);
 
   const url = '/poll/';
-  useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        setVoteData(data);
+
+  const updateState = (data) => {
+    setVoteData(data);
         let sum = 0;
         data.forEach(function (obj) {
           sum += obj.votes;
         });
         setTotalVotes(sum);
+      };
+
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        updateState(data);
       });
   }, []);
 
+
   const submitVote = (e) => {
-    if (voted === false) {
-      const voteSelected = e.target.dataset.id;
+    e.preventDefault();
+    if (voted === false) { 
+      const voteSelected = e.target.id;
+    /* 
       const voteCurrent = voteData[voteSelected].votes;
-      voteData[voteSelected].votes = voteCurrent + 1;
+      voteData[voteSelected].votes = voteCurrent + 1; 
       setTotalVotes(totalVotes + 1);
-      setVoted(!voted);
+      */
+      setVoted(!voted); 
+
       const options = {
-        method: 'POST',
-        body: JSON.stringify(voteData),
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({id: voteSelected}),
       };
+      
       fetch(url, options)
         .then((res) => res.json())
-        .then((res) => console.log(res));
+        .then((data) =>updateState(data));
+
     }
-  };
+}; 
 
   let pollOptions;
   if (voteData) {
     pollOptions = voteData.map((item) => {
       return (
-        <li key={item.id} >       
-          <GiftBox/>
-          <button onClick={submitVote} data-id={item.id}>
-            {item.option}
-            <span>- got {item.votes} votes</span>
+        <li key={item.id}>
+          <GiftBox />
+          <button onClick={submitVote} id={item.id}>
+            {item.optionName} 
+            - got {item.votes} votes
           </button>
         </li>
       );

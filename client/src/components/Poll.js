@@ -32,6 +32,7 @@ function StrawPoll() {
     e.preventDefault();
     if (voted === false) {
       const voteSelected = e.target.id;
+      console.log('btn selected',voteSelected);
       setVoted(!voted);
 
       const options = {

@@ -23,7 +23,6 @@ function StrawPoll() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log('data.rows',data.rows);
         updateState(data.rows);
       });
   }, []);

@@ -12,7 +12,7 @@ const path = require('path');
 SQL                   
 ====================================================================================*/
 const { Pool } = require('pg');
-const secrets = require('./secrets.json');
+/* const secrets = require('./secrets.json'); */
 /* =====================================================================================
 body parser configuration                        
 ====================================================================================*/
@@ -32,7 +32,7 @@ const pool = new Pool({
   host: 'localhost',
   user: 'postgres',
   database: 'vote_app',
-  password: secrets.password,
+  password: 'mcl6S%59',
   port: 5432,
   max: 10, // max number of clients in the pool
 });

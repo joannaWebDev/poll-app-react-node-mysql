@@ -68,7 +68,7 @@ const getEntireTable = (req, res) => {
     }
     res.send(result);
   }); */
-  client.query('SELECT * FROM vote_app.voting_app', (err, result) => {
+  client.query('SELECT * FROM voting_app', (err, result) => {
     if (err) throw err;
   /*  for (let row of res.rows) {
       console.log(JSON.stringify(row));
@@ -91,7 +91,7 @@ const putUpdatedVotes = (req, res) => {
     getEntireTable(req, res);
   }); */
 
-  client.query('UPDATE vote_app.voting_app SET votes = votes + 1 WHERE id =  $1', [reqId], (err, result) => {
+  client.query('UPDATE voting_app SET votes = votes + 1 WHERE id =  $1', [reqId], (err, result) => {
     if (err) throw err;
   /*  for (let row of res.rows) {
       console.log(JSON.stringify(row));

@@ -25,3 +25,4 @@ yarn-error.log*
 
 notes.md
 server/secrets.json
+server/old_server_mysql.js

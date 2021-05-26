@@ -19,15 +19,18 @@ SELECT * FROM voting_app;
 UPDATE voting_app SET votes = votes + 1 WHERE id = ?;
 
     
+SELECT * FROM voting_app;
 
-SELECT 
+
+
+/* SELECT 
     SUM(votes) 
 FROM
     voting_app;
 
 
 /*👇 new table*/
-
+/*
 DROP TABLE if exists votes;
 
 CREATE TABLE votes(
@@ -76,4 +79,4 @@ SELECT  SUM(votes)
 FROM voting_app 
 WHERE optionName='Gift Two';
 
-INSERT INTO voting_app (votes)  VALUES (0,1);
+INSERT INTO voting_app (votes)  VALUES (0,1); */

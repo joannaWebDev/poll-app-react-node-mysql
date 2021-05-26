@@ -1,68 +1,74 @@
 'use strict';
 const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const mysql = require('mysql');
-const secrets = require('./secrets.json');0.
-
 const app = express();
-const bodyParser = require("body-parser");
+
+const cors = require('cors');
 app.use(cors());
+
+const bodyParser = require('body-parser');
+
+const path = require('path');
+/* =====================================================================================
+SQL                   
+====================================================================================*/
+const { Pool } = require('pg');
+const secrets = require('./secrets.json');
+/* =====================================================================================
+body parser configuration                        
+====================================================================================*/
 app.use(bodyParser.json());
-
-//request the path API and serve static files from the client build folder.
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
+/* =====================================================================================
+request the path API and serve static files from the client build folder.                  
+====================================================================================*/
 app.use(express.static(path.join(__dirname, '../client/build')));
-
 const PORT = process.env.PORT || 5000;
 
-const db = mysql.createPool({
+const pool = new Pool({
   host: 'localhost',
-  user: 'root',
-  password: secrets.password,
+  user: 'postgres',
   database: 'vote_app',
-  connectionLimit: 10, //important
-  debug: false,
+  password: secrets.password,
+  port: 5432,
+  max: 10, // max number of clients in the pool
 });
-
 
 //GET
 const getEntireTable = (req, res) => {
-  db.query(`SELECT * FROM voting_app`, (err, result) => {
+  pool.query(`SELECT * FROM vote_app.voting_app`, (err, result) => {
     if (err) {
-      console.log('Oops, our junior developer did it again 🙄', err);
+      console.log('SELECT', err);
+      return;
     }
     res.send(result);
   });
 };
 
-const putUpdatedVotes = (req, res) =>{
-  db.query(`UPDATE voting_app SET votes = votes + 1 WHERE id = ?`, [req.body.id], (err, result) => {
+const putUpdatedVotes = (req, res) => {
+  const reqId = parseInt(req.body.id);
+  pool.query(`UPDATE vote_app.voting_app SET votes = votes + 1 WHERE id =  $1`, [reqId], (err, psqlresponse) => {
     if (err) {
-      console.log('Oops, our junior developer did it again 🙄', err);
+      console.log('UPDATE ', err);
+      return;
     }
-  getEntireTable(req, res);
-  })
-
-  
+    getEntireTable(req, res);
+  });
 };
-
 
 /* =====================================================================================
 ENDPOINTS 
 ====================================================================================*/
 app.get('/poll', getEntireTable);
-app.put("/poll", putUpdatedVotes);
+app.put('/poll', putUpdatedVotes);
 
-
-app.listen(PORT, function(err) {
+app.listen(PORT, function (err) {
   if (err) {
-    console.error(err)
+    console.error(err);
   } else {
-    console.log(`Running on port ${PORT}`)
-}
-})
-
-
-
-
-
+    console.log(`Running on port ${PORT}`);
+  }
+});

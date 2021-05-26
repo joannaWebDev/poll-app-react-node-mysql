@@ -11,55 +11,48 @@ function StrawPoll() {
 
   const updateState = (data) => {
     setVoteData(data);
-        let sum = 0;
-        data.forEach(function (obj) {
-          sum += obj.votes;
-        });
-        setTotalVotes(sum);
-      };
+    let sum = 0;
+    data.forEach(function (obj) {
+      sum += obj.votes;
+    });
+    setTotalVotes(sum);
+  };
 
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        updateState(data);
+        updateState(data.rows);
       });
   }, []);
 
-
   const submitVote = (e) => {
     e.preventDefault();
-    if (voted === false) { 
+    if (voted === false) {
       const voteSelected = e.target.id;
-    /* 
-      const voteCurrent = voteData[voteSelected].votes;
-      voteData[voteSelected].votes = voteCurrent + 1; 
-      setTotalVotes(totalVotes + 1);
-      */
-      setVoted(!voted); 
+      setVoted(!voted);
 
       const options = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({id: voteSelected}),
+        body: JSON.stringify({ id: voteSelected }),
       };
-      
+
       fetch(url, options)
         .then((res) => res.json())
-        .then((data) =>updateState(data));
-
+        .then((data) => updateState(data.rows));
     }
-}; 
+  };
 
   let pollOptions;
+
   if (voteData) {
     pollOptions = voteData.map((item) => {
       return (
         <li key={item.id}>
           <GiftBox />
           <button onClick={submitVote} id={item.id}>
-            {item.optionName} 
-            - got {item.votes} votes
+            {item.option_name}- got {item.votes} votes
           </button>
         </li>
       );

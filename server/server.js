@@ -42,7 +42,7 @@ const getEntireTable = (req, res) => {
   client.query('SELECT * FROM voting_app', (err, result) => {
     if (err) {
       console.log('SELECT', err);
-      return;
+      
     }
     res.send(result);
     client.end();
@@ -57,7 +57,7 @@ const putUpdatedVotes = (req, res) => {
   client.query('UPDATE voting_app SET votes = votes + 1 WHERE id =  $1', [reqId], (err, psqlresponse) => {
     if (err) {
       console.log('UPDATE ', err);
-      return;
+   
     }
     getEntireTable(req, res);
     client.end();

@@ -23,7 +23,6 @@ const client = new Client({
   }
 });
 
-client.connect();
 /* =====================================================================================
 body parser configuration                        
 ====================================================================================*/
@@ -49,13 +48,17 @@ const PORT = process.env.PORT || 5000;
 }); */
 
 //GET
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+
+
+/* client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
     console.log(JSON.stringify(row));
   }
   client.end();
-});
+}); */
+
+client.connect();
 
 const getEntireTable = (req, res) => {
  /*  pool.query(`SELECT * FROM vote_app.voting_app`, (err, result) => {
@@ -75,8 +78,11 @@ const getEntireTable = (req, res) => {
   });
 };
 
+
+client.connect();
+
 const putUpdatedVotes = (req, res) => {
- /*  const reqId = parseInt(req.body.id);
+/*  const reqId = parseInt(req.body.id);
   pool.query(`UPDATE vote_app.voting_app SET votes = votes + 1 WHERE id =  $1`, [reqId], (err, psqlresponse) => {
     if (err) {
       console.log('UPDATE ', err);

@@ -2,13 +2,13 @@ DROP TABLE if exists voting_app;
 
 CREATE TABLE voting_app (
 id SERIAL PRIMARY KEY,
-name VARCHAR(50) NOT NULL,
+option_name VARCHAR(50) NOT NULL,
 votes INT NOT NULL
 );
 
 SELECT * FROM voting_app;
 
-INSERT INTO `voting_app` (name, votes)
+INSERT INTO voting_app (option_name, votes)
 VALUES 
 ('Gift One', 0 ),
 ('Gift Two', 0 );

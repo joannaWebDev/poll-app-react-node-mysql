@@ -69,10 +69,10 @@ const getEntireTable = (req, res) => {
   }); */
   client.query('SELECT * FROM voting_app', (err, result) => {
     if (err) throw err;
-  /*  for (let row of res.rows) {
-      console.log(JSON.stringify(row));
-    } */
-    res.send(result);
+    for (let row of result.rows) {
+     // console.log(JSON.stringify(row));
+      res.send(JSON.stringify(row));
+    }
     client.end();
   });
 };

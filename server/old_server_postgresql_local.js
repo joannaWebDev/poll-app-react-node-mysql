@@ -10,14 +10,9 @@ const path = require('path');
 /* =====================================================================================
 SQL                   
 ====================================================================================*/
-const { Client } = require('pg');
+const { Pool } = require('pg');
+const secrets = require('./secrets.json');
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
 
 /* =====================================================================================
 body parser configuration                        
@@ -34,28 +29,38 @@ request the path API and serve static files from the client build folder.
 app.use(express.static(path.join(__dirname, '../client/build')));
 const PORT = process.env.PORT || 5000;
 
+const pool = new Pool({
+  host: 'localhost',
+  user: 'postgres',
+  database: 'vote_app',
+  password: secrets.password,
+  port: 5432,
+  max: 10, // max number of clients in the pool
+});
 
 //GET
-client.connect();
 
 const getEntireTable = (req, res) => {
-  client.query('SELECT * FROM voting_app', (err, result) => {
-    if (err) throw err;
+  pool.query(`SELECT * FROM vote_app.voting_app`, (err, result) => {
+    if (err) {
+      console.log('SELECT', err);
+      return;
+    }
     res.send(result);
-    client.end();
-  });
+  }); 
 };
 
 
-client.connect();
-
 const putUpdatedVotes = (req, res) => {
   const reqId = parseInt(req.body.id);
-  client.query('UPDATE voting_app SET votes = votes + 1 WHERE id =  $1', [reqId], (err, result) => {
-    if (err) throw err;
+  pool.query(`UPDATE vote_app.voting_app SET votes = votes + 1 WHERE id =  $1`, [reqId], (err, psqlresponse) => {
+    if (err) {
+      console.log('UPDATE ', err);
+      return;
+    }
     getEntireTable(req, res);
-    client.end();
   });
+
 }; 
 
 /* =====================================================================================
@@ -63,7 +68,6 @@ ENDPOINTS
 ====================================================================================*/
 app.get('/poll', getEntireTable);
 app.put('/poll', putUpdatedVotes);
-
 
 app.listen(PORT, function (err) {
   if (err) {

@@ -22,7 +22,7 @@ function StrawPoll() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        updateState(data);
+        updateState(data.rows);
       });
   }, []);
 
@@ -40,7 +40,7 @@ function StrawPoll() {
 
       fetch(url, options)
         .then((res) => res.json())
-        .then((data) => updateState(data));
+        .then((data) => updateState(data.rows));
     }
   };
 

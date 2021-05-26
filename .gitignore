@@ -26,3 +26,5 @@ yarn-error.log*
 notes.md
 server/secrets.json
 server/old_server_mysql.js
+server/old_server_localJsonDB.js
+server/old_server_postgresql_local.js

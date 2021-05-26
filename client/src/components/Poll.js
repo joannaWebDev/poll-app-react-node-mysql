@@ -24,6 +24,7 @@ function StrawPoll() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        console.log('data.rows',data.rows);
         updateState(data.rows);
       });
   }, []);
@@ -32,7 +33,7 @@ function StrawPoll() {
     e.preventDefault();
     if (voted === false) {
       const voteSelected = e.target.id;
-      console.log('btn selected',voteSelected);
+      console.log('btn clicked',voteSelected);
       setVoted(!voted);
 
       const options = {

@@ -10,6 +10,7 @@ function StrawPoll() {
   const url = '/poll/';
 
   const updateState = (data) => {
+    console.log(data);
     setVoteData(data);
     let sum = 0;
     data.forEach(function (obj) {

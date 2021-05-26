@@ -54,10 +54,10 @@ client.connect();
 
 const putUpdatedVotes = (req, res) => {
   const reqId = parseInt(req.body.id);
-  client.query('UPDATE voting_app SET votes = votes + 1 WHERE id =  $1', [reqId], (err, psqlresponse) => {
+  client.query('UPDATE voting_app SET votes = votes + 1 WHERE id = $1', [reqId], (err, psqlresponse) => {
     if (err) {
       console.log('UPDATE ', err);
-   
+  
     }
     getEntireTable(req, res);
     client.end();

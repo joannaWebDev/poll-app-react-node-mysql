@@ -36,6 +36,7 @@ const PORT = process.env.PORT || 5000;
 
 
 //GET
+client.connect();
 
 const getEntireTable = (req, res) => {
   client.query('SELECT * FROM voting_app', (err, result) => {
@@ -44,11 +45,12 @@ const getEntireTable = (req, res) => {
       
     }
     res.send(result);
+    client.end();
   });
 };
 
 
-
+client.connect();
 
 const putUpdatedVotes = (req, res) => {
   const reqId = parseInt(req.body.id);
@@ -58,6 +60,7 @@ const putUpdatedVotes = (req, res) => {
   
     }
     getEntireTable(req, res);
+    client.end();
   });
 }; 
 

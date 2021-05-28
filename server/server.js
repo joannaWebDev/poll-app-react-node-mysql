@@ -35,14 +35,12 @@ request the path API and serve static files from the client build folder.
 app.use(express.static(path.join(__dirname, '../client/build')));
 const PORT = process.env.PORT || 5000;
 
-
 //GET
 
 const getEntireTable = (req, res) => {
   client.query('SELECT * FROM voting_app', (err, result) => {
     if (err) {
-      console.log('SELECT', err);
-      
+      console.log('SELECT: Oops, our junior developer did it again 😅!', err);      
     }
     res.send(result);
   });
@@ -54,7 +52,7 @@ const putUpdatedVotes = (req, res) => {
   const reqId = parseInt(req.body.id);
   client.query('UPDATE voting_app SET votes = votes + 1 WHERE id = $1', [reqId], (err, psqlresponse) => {
     if (err) {
-      console.log('UPDATE ', err);
+      console.log('UPDATE: Oops, our junior developer did it again 😅!', err);
   
     }
     getEntireTable(req, res);
